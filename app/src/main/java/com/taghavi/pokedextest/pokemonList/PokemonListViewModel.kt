@@ -14,10 +14,12 @@ import com.taghavi.pokedextest.repository.PokemonRepository
 import com.taghavi.pokedextest.util.Constants
 import com.taghavi.pokedextest.util.Constants.PAGE_SIZE
 import com.taghavi.pokedextest.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
+@HiltViewModel
 class PokemonListViewModel @Inject constructor(
     private val repository: PokemonRepository
 ) : ViewModel() {

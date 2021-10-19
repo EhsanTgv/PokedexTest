@@ -31,7 +31,8 @@ import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.CoilPainterDefaults
+import com.google.accompanist.coil.rememberCoilPainter
 import com.taghavi.pokedextest.R
 import com.taghavi.pokedextest.data.models.PokedexListEntry
 import com.taghavi.pokedextest.ui.theme.RobotoCondensed
@@ -179,27 +180,28 @@ fun PokedexEntry(
             }
     ) {
         Column {
-            CoilImage(
-                request = ImageRequest
-                    .Builder(LocalContext.current)
-                    .data(entry.imageUrl)
-                    .target {
-                        viewModel.calcDominantColor(it) { color ->
-                            dominantColor = color
+            Image(
+                painter = rememberCoilPainter(
+                    request = ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(entry.imageUrl)
+                        .target {
+                            viewModel.calcDominantColor(it) { color ->
+                                dominantColor = color
+                            }
                         }
-                    }
-                    .build(),
+                        .build(),
+                    imageLoader = CoilPainterDefaults.defaultImageLoader(),
+                    requestBuilder = null,
+                    fadeIn = true,
+                    previewPlaceholder = 0,
+                    shouldRefetchOnSizeChange = { _, _ -> false },
+                ),
                 contentDescription = entry.pokemonName,
-                fadeIn = true,
                 modifier = Modifier
                     .size(120.dp)
-                    .align(CenterHorizontally)
-            ) {
-                CircularProgressIndicator(
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier.scale(0.5f)
-                )
-            }
+                    .align(CenterHorizontally),
+            )
             Text(
                 text = entry.pokemonName,
                 fontFamily = RobotoCondensed,
@@ -224,7 +226,7 @@ fun PokedexRow(
                 navController = navController,
                 modifier = Modifier.weight(1f)
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             if (entries.size >= rowIndex * 2 + 2) {
                 PokedexEntry(
                     entry = entries[rowIndex * 2 + 1],
