@@ -45,14 +45,14 @@ import kotlin.math.roundToInt
 @Composable
 fun PokemonDetailScreen(
     dominantColor: Color,
-    pokemonName: String,
+    pokemonId: String,
     navController: NavController,
     topPadding: Dp = 20.dp,
     pokemonImageSize: Dp = 200.dp,
     viewModel: PokemonDetailViewModel = hiltNavGraphViewModel()
 ) {
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
-        value = viewModel.getPokemonInfo(pokemonName)
+        value = viewModel.getPokemonInfo(pokemonId)
     }.value
     PokemonDetailTopSection(
         navController = navController,

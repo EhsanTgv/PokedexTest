@@ -32,22 +32,22 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable(
-                        "pokemon_detail_screen/{dominantColor}/{pokemonName}",
+                        "pokemon_detail_screen/{dominantColor}/{pokemonId}",
                         arguments = listOf(
                             navArgument("dominantColor") { type = NavType.IntType },
-                            navArgument("pokemonName") { type = NavType.StringType },
+                            navArgument("pokemonId") { type = NavType.StringType },
                         )
                     ) {
                         val dominantColor = remember {
                             val color = it.arguments?.getInt("dominantColor")
                             color?.let { Color(it) } ?: Color.White
                         }
-                        val pokemonName = remember {
-                            it.arguments?.getString("pokemonName")
+                        val pokemonId = remember {
+                            it.arguments?.getString("pokemonId")
                         }
                         PokemonDetailScreen(
                             dominantColor = dominantColor,
-                            pokemonName = pokemonName ?: "",
+                            pokemonId = pokemonId ?: "",
                             navController = navController
                         )
                     }

@@ -181,7 +181,7 @@ fun PokedexEntry(
             .aspectRatio(1f)
             .background(Brush.verticalGradient(listOf(dominantColor, defaultDominantColor)))
             .clickable {
-                navController.navigate("pokemon_detail_screen/${dominantColor.toArgb()}/${entry.pokemonName}")
+                navController.navigate("pokemon_detail_screen/${dominantColor.toArgb()}/${entry.number}")
             }
     ) {
         Column {
